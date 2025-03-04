@@ -40,4 +40,4 @@ To run the application locally:
 - CSS3
 - JavaScript
 - Google Drive API
-- html2pdf.js 
+- html2pdf.js
