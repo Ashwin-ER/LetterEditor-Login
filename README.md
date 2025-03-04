@@ -20,7 +20,8 @@ This application is deployed using GitHub Pages. To deploy your own instance:
 3. Select the main branch as the source
 4. Save the changes
 
-Your application will be available at: `https://[your-username].github.io/[repository-name]`
+DEMO: https://ashwin-er.github.io/LetterEditor-Login/
+https://ashwin-er.github.io/LetterEditor-Login/letter-editor.html
 
 ## Local Development
 
