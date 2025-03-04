@@ -21,7 +21,6 @@ This application is deployed using GitHub Pages. To deploy your own instance:
 4. Save the changes
 
 DEMO: https://ashwin-er.github.io/LetterEditor-Login/
-https://ashwin-er.github.io/LetterEditor-Login/letter-editor.html
 
 ## Local Development
 
@@ -34,6 +33,8 @@ To run the application locally:
    - Enable the Google Drive API
    - Create OAuth 2.0 credentials
    - Update the `CLIENT_ID` and `API_KEY` in `letter-editor.js`
+  
+https://ashwin-er.github.io/LetterEditor-Login/letter-editor.html
 
 ## Technologies Used
 
