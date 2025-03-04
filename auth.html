@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Letter Editor - Login</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google Sign-In API -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <style>
+        :root {
+            --primary-color: #4b6cb7;
+            --primary-dark: #35548b;
+            --secondary-color: #dc3545;
+            --secondary-dark: #c82333;
+            --background-color: #f8f9fa;
+            --text-color: #333;
+            --border-color: #ddd;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            background: var(--background-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Form Styles */
+        .form-box {
+            max-width: 400px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px var(--shadow-color);
+        }
+
+        .form-container {
+            text-align: center;
+        }
+
+        .form-container h2 {
+            color: var(--text-color);
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(75, 108, 183, 0.1);
+        }
+
+        .input-group label {
+            position: absolute;
+            left: 0.8rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .input-group input:focus + label,
+        .input-group input:not(:placeholder-shown) + label {
+            top: 0;
+            font-size: 0.8rem;
+            background: white;
+            padding: 0 0.4rem;
+            color: var(--primary-color);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .divider span {
+            padding: 0 1rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .google-btn {
+            margin: 1rem 0;
+        }
+
+        .google-signin-btn {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background: white;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .google-signin-btn:hover {
+            background: #f8f9fa;
+            border-color: var(--primary-color);
+        }
+
+        .google-signin-btn img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+        }
+
+        .links a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .links a:hover {
+            color: var(--primary-dark);
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Success and Error Messages */
+        .success-message,
+        .error-message {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: 500;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .success-message {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .error-message {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .form-box {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Login Form -->
+        <div class="form-box" id="loginForm">
+            <div class="form-container">
+                <h2>Welcome Back</h2>
+                <form id="loginFormElement">
+                    <div class="input-group">
+                        <input type="email" id="loginEmail" required placeholder=" ">
+                        <label for="loginEmail">Email</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="loginPassword" required placeholder=" ">
+                        <label for="loginPassword">Password</label>
+                    </div>
+                    <button type="submit">Login</button>
+                </form>
+                <div class="divider">
+                    <span>or</span>
+                </div>
+                <div class="google-btn">
+                    <button id="google-login-btn" class="google-signin-btn">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google Logo">
+                        Sign in with Google
+                    </button>
+                </div>
+                <div class="links">
+                    <a href="#" id="forgotPassword">Forgot Password?</a>
+                    <a href="#" id="showSignup">Don't have an account? Sign Up</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Signup Form -->
+        <div class="form-box" id="signupForm" style="display: none;">
+            <div class="form-container">
+                <h2>Create Account</h2>
+                <form id="signupFormElement">
+                    <div class="input-group">
+                        <input type="text" id="signupName" required placeholder=" ">
+                        <label for="signupName">Full Name</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="email" id="signupEmail" required placeholder=" ">
+                        <label for="signupEmail">Email</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="signupPassword" required placeholder=" ">
+                        <label for="signupPassword">Password</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="confirmPassword" required placeholder=" ">
+                        <label for="confirmPassword">Confirm Password</label>
+                    </div>
+                    <button type="submit">Sign Up</button>
+                </form>
+                <div class="divider">
+                    <span>or</span>
+                </div>
+                <div class="google-btn">
+                    <button id="google-signup-btn" class="google-signin-btn">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google Logo">
+                        Sign in with Google
+                    </button>
+                </div>
+                <div class="links">
+                    <a href="#" id="showLogin">Already have an account? Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+</body>
+</html> 
